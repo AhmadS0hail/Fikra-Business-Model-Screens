@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+
+* {
+	font-family: "Azer";
+}
+
+.bm_img {
+	height: 400px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.br-test {
+	border: 2px solid red;
+}
+
+.vue-dropdown-item.highlighted{
+	background-color: #f0f0f0;
+	border-left:5px solid #0a4b78;
+}
+
+.vue-dropdown-item.selected.highlighted {
+	background-color:  rgba(42, 100, 144  ) ;
+	color: #fff;
+}
+
+@media(max-width: 640px){
+	#mobile-menu-2 ul{
+		padding: 0 20px;
+	}
+}
