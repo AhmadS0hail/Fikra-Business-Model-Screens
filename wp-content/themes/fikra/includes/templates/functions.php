@@ -73,6 +73,12 @@ function modify_function_templates()
     $title_en = get_post_meta($post->ID, 'title_en', true);
     $file_ar = get_post_meta($post->ID, 'file_ar', true);
     $file_en = get_post_meta($post->ID, 'file_en', true);
+    $file_ar_id = get_post_meta($post->ID, 'file_ar_id', true);
+    $file_en_id = get_post_meta($post->ID, 'file_en_id', true);
+
+    $file_ar_ = wp_get_attachment_url($file_ar_id);
+    $file_en_ = wp_get_attachment_url($file_en_id);
+
     ?>
     <ul class="_list">
         <li><label><span><b> Title (English) : </b></span></label>
@@ -85,7 +91,8 @@ function modify_function_templates()
 
             <label><span>ملف النموذج 1</span></label>
 
-            <input type="text" name="file_ar" id="file_ar" size="25" value="<?php echo $file_ar; ?>">
+            <input type="text" name="file_ar" id="file_ar" size="25" value="<?php echo $file_ar_id ? $file_ar_ : $file_ar   ; ?>">
+            <input type="hidden" name="file_ar_id" id="file_ar_id" size="25" value="<?php echo $file_ar_id; ?>">
 
             <button data-inputid="file_ar" type="button"
 
@@ -99,7 +106,8 @@ function modify_function_templates()
 
             <label><span>ملف النموذج 2</span></label>
 
-            <input type="text" name="file_en" id="file_en" size="25" value="<?php echo $file_en; ?>">
+            <input type="text" name="file_en" id="file_en" size="25" value="<?php echo $file_en_id ? $file_en_ : $file_en   ; ?>">
+            <input type="hidden" name="file_en_id" id="file_en_id" size="25" value="<?php echo $file_en_id; ?>">
 
             <button data-inputid="file_en" type="button"
 
@@ -167,6 +175,7 @@ function modify_function_templates()
                     // We set multiple to false so only get one image from the uploader
                     attachment = file_frame.state().get('selection').first().toJSON();
                     jQuery("#" + inputid).val(attachment.url);
+                    jQuery("#"+inputid+"_id").val(attachment.id);
                     // Do something with attachment.id and/or attachment.url here
                 });
                 // Finally, open the modal
@@ -260,6 +269,7 @@ function modify_function_templates()
 
 
                     jQuery("#" + inputid).val(attachment.url);
+                    jQuery("#"+inputid+"_id").val(attachment.id);
 
 
                     // Do something with attachment.id and/or attachment.url here
@@ -291,6 +301,8 @@ function save_templates_meta($post_id = false, $post = false)
         update_post_meta($post_id, 'title_en', $_POST['title_en']);
         update_post_meta($post_id, 'file_ar', $_POST['file_ar']);
         update_post_meta($post_id, 'file_en', $_POST['file_en']);
+        update_post_meta($post_id, 'file_ar_id', $_POST['file_ar_id']);
+        update_post_meta($post_id, 'file_en_id', $_POST['file_en_id']);
 
 //        delete_post_meta($post_id, 'keywords');
 //        foreach ($_POST['keyword'] as $k => $answer) {
