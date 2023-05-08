@@ -324,7 +324,7 @@ class Fikra_API extends WP_REST_Controller
                 'type' => 'Multiple',
                 'options' => $answers,
                 'heading' => get_The_title(),
-                'subHeading' => "يرجى الاختيار",
+                'subHeading' => null,
                 'description' => get_the_excerpt(),
 
             ];
@@ -350,7 +350,7 @@ class Fikra_API extends WP_REST_Controller
                 'type' => 'Multiple',
                 'options' => $answers,
                 'heading' => get_The_title(),
-                'subHeading' => "يرجى الاختيار",
+                'subHeading' => null,
                 'description' => get_the_excerpt(),
 
             ];

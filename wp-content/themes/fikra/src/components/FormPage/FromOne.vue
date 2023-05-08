@@ -24,7 +24,7 @@
 					<template #icon-right> <img :src="_settings.tlink+'/src/assets/img/phone.svg'" alt="Icon" class="w-5" /></template>
 					<template #arrow-icon> <span class="icon arrow-downward"></span></template>
 				</vue-tel-input>
-				<p v-if="invalidPhoneNumber" class="block mt-2 text-sm font-medium text-red-500">يجب أن يكون رقم الجوال 9 أرقام</p>
+				<p v-if="invalidPhoneNumber" class="block mt-2 text-sm font-medium text-red-500">* رقم الجوال غير صحيح</p>
 			</div>
 			<!-- Email -->
 			<BaseInput
@@ -93,7 +93,7 @@
 		ignoredCountries: ["IL"],
 		autoDefaultCountry: false,
 		validCharactersOnly: true,
-		autoFormat: true,
+		autoFormat: false,
 		inputOptions: {
 			autocomplete: "off",
 			maxlength: 25,
@@ -117,6 +117,7 @@
 
 	// Validate Phone Number (Currently Only For Saudi Arabia)
 	function checkPhone(num) {
+    num = convertArabicToEnglishNumber(num);
 		if (num) {
 			const pattern = /^(?:(?:\+|00)966)?5\d{8}$/;
 			let trimmed = num.replace(/\s+/g, "").trim();
@@ -128,6 +129,28 @@
 		}
 	}
 
+  function convertArabicToEnglishNumber(input) {
+    let arabicDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+    let englishDigits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    let output = "";
+
+    // Loop through each character in the input
+    for (let i = 0; i < input.length; i++) {
+      let char = input.charAt(i);
+      let index = arabicDigits.indexOf(char);
+
+      // If the character is an Arabic digit, replace it with its English counterpart
+      if (index !== -1) {
+        output += englishDigits[index];
+      } else {
+        output += char;
+      }
+    }
+
+    return output;
+  }
+
+
 	// Handle Invalid Form Submission (Check for Invalid Phone or Unselected Project Type)
 	function onInvalidSubmit() {
 		if (!projectDomain.value) {
@@ -138,6 +161,8 @@
 			invalidPhoneNumber.value = true;
 		}
 	}
+
+
 
 	// Handle Submission
 	const onSubmit = handleSubmit((values) => {
