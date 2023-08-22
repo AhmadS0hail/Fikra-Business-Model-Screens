@@ -1,100 +1,130 @@
 <template>
-	<form @submit.prevent="onSubmit">
-		<MChoice
-			v-for="question in formTwoQuestions"
-			:key="question.id"
-			:questionID="question.id"
-			:questionType="question.type"
-			:heading="question.heading"
-			:subHeading="question.subHeading"
-			:description="question.description"
-			:options="question.options"
-			:errorState="errorStates[question.id]"
-			@updateErrorState="checkError"
-			v-model:value="results[question.id]" />
+  <form @submit.prevent="onSubmit">
+    <div
+        v-for="question in formTwoQuestions"
+        :key="question.id"
+    >
 
-		<div class="flex items-center justify-between w-full">
-			<button
-				type="button"
-				class="w-full py-2 mx-1 mt-6 text-center bg-white border rounded-full text-primary border-primary"
-				@click="emit('moveBack')">
-				السابق
-			</button>
-			<button type="submit" class="w-full py-2 mx-1 mt-6 text-center text-white rounded-full bg-primary">التالي</button>
-		</div>
-	</form>
+      <div v-if="question.inputType === 'select'">
+        <div class="mb-16 space-y-2">
+          <h2 v-if="question.heading" class="text-[#1C1C1C] text-xl font-bold">{{ question.heading }}</h2>
+
+         <vue-select
+            class="bg-white border border-gray-300 text-grey sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full py-1.5 px-2.5 outline-none"
+             :multiple="false"
+            v-model="results[question.id]"
+            :options="question.options2"
+            :placeholder="'يرجى الاختيـار'"
+            :close-on-select="true"
+            @selected="toggleSelectErrorState">
+        </vue-select>
+       </div>
+       </div>
+
+      <div v-else>
+
+        <MChoice
+            :questionID="question.id"
+            :questionType="question.type"
+            :heading="question.heading"
+            :subHeading="question.subHeading"
+            :description="question.description"
+            :options="question.options"
+            :errorState="errorStates[question.id]"
+            @updateErrorState="checkError"
+            v-model:value="results[question.id]"/>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between w-full">
+      <button
+          type="button"
+          class="w-full py-2 mx-1 mt-6 text-center bg-white border rounded-full text-primary border-primary"
+          @click="emit('moveBack')">
+        السابق
+      </button>
+      <button type="submit" class="w-full py-2 mx-1 mt-6 text-center text-white rounded-full bg-primary">التالي</button>
+    </div>
+  </form>
 </template>
 
 <script setup>
-	import MChoice from "../Base/MChoice.vue";
-	import { ref } from "vue";
-	// import { formTwoQuestions } from "../../utils/formQuestions";
-  import axios from 'axios';
+import MChoice from "../Base/MChoice.vue";
+import {ref} from "vue";
+// import { formTwoQuestions } from "../../utils/formQuestions";
+import axios from 'axios';
 
-	const emit = defineEmits(["validSubmission", "moveBack"]);
+const emit = defineEmits(["validSubmission", "moveBack"]);
 
-	const results = ref({});
-	const errorStates = ref({});
-	let formTwoQuestions = ref({});
+const results = ref({});
+const errorStates = ref({});
+let formTwoQuestions = ref({});
 
+const projectDomain = ref(null);
+const unSelectedprojectDomain = ref(false);
 
-	const checkError = (optionId) => {
-		if (results.value[optionId].length || results.value[optionId].id) errorStates.value[optionId] = false;
-	};
+// Change the selection error state
+function toggleSelectErrorState() {
+  unSelectedprojectDomain.value = false;
+}
 
-	const onSubmit = () => {
-		let toSubmit = {};
-		let errorFound = false;
+const checkError = (optionId) => {
+  if (results.value[optionId].length || results.value[optionId].id) errorStates.value[optionId] = false;
+};
 
-		Object.entries(results.value).forEach((el) => {
-			if (Array.isArray(el[1]) && !el[1].length) {
-				errorStates.value[el[0]] = true;
-				errorFound = true;
-			} else if (!Array.isArray(el[1]) && !el[1].id) {
-				errorStates.value[el[0]] = true;
-				errorFound = true;
-			} else {
-				if (Array.isArray(el[1])) {
-					let temp = [];
-					Object.values(el[1]).forEach((el) => temp.push(el.value));
-					toSubmit[el[0]] = temp;
-				} else {
-					toSubmit[el[0]] = el[1].value;
-				}
-			}
-		});
+const onSubmit = () => {
+  let toSubmit = {};
+  let errorFound = false;
 
-		if (!errorFound) {
-			emit("validSubmission", "formTwo", toSubmit);
-		}
-	};
-  let set = JSON.parse(_settings);
+  Object.entries(results.value).forEach((el) => {
+    if (Array.isArray(el[1]) && !el[1].length) {
+      errorStates.value[el[0]] = true;
+      errorFound = true;
+    } else if (!Array.isArray(el[1]) && !el[1].id) {
+      errorStates.value[el[0]] = true;
+      errorFound = true;
+    } else {
+      if (Array.isArray(el[1])) {
+        let temp = [];
+        Object.values(el[1]).forEach((el) => temp.push(el.value));
+        toSubmit[el[0]] = temp;
+      } else {
+        toSubmit[el[0]] = el[1].value;
+      }
+    }
+  });
 
-  const apiUrl = set.tdomain+'/wp-json/fikra/v1/questions';
+  if (!errorFound) {
+    emit("validSubmission", "formTwo", toSubmit);
+  }
+};
+let set = JSON.parse(_settings);
 
-  // Make a GET request to the custom API endpoint using Axios
-  axios.get(apiUrl)
-      .then(response => {
-        // Handle the response data
-        formTwoQuestions = response.data.formTwoQuestions
-        // Perform further actions with the response data as needed
-        // console.log(response.data)
+const apiUrl = set.tdomain + '/wp-json/fikra/v1/questions';
 
-        formTwoQuestions.forEach((el) => {
-          if (el.type === "Multiple") {
-            results.value[el.id] = [];
-          }
+// Make a GET request to the custom API endpoint using Axios
+axios.get(apiUrl)
+    .then(response => {
+      // Handle the response data
+      formTwoQuestions = response.data.formTwoQuestions
+      // Perform further actions with the response data as needed
+      // console.log(response.data)
 
-          if (el.type === "Single") {
-            results.value[el.id] = {};
-          }
+      formTwoQuestions.forEach((el) => {
+        if (el.type === "Multiple") {
+          results.value[el.id] = [];
+        }
 
-          errorStates.value[el.id] = false;
-        });
-      })
-      .catch(error => {
-        // Handle any errors that occur during the API call
-        this.error = error;
+        if (el.type === "Single") {
+          results.value[el.id] = {};
+        }
+
+        errorStates.value[el.id] = false;
       });
+    })
+    .catch(error => {
+      // Handle any errors that occur during the API call
+      this.error = error;
+    });
 
 </script>

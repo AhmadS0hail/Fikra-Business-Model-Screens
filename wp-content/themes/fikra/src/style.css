@@ -64,8 +64,22 @@
 .show-all-templates .moretemplates{
 	display: none !important;
 }
+.mcd{
+	display: flex;
+}
+.mcd span{
+	display: block;
+	width: 16px;
+}
+textarea{
+	min-height: 200px;
+}
+.w-100{
+	width: 100%;
+}
 @media(max-width: 640px){
 	#mobile-menu-2 ul{
 		padding: 0 20px;
 	}
+
 }

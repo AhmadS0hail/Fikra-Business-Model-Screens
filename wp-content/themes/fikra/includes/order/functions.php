@@ -56,7 +56,7 @@ function modify_function_orders()
         <li><label><span><b> الجوال : </b></span></label> <?php echo $meta['phone'][0]; ?> </li>
         <li><label><span><b> البريد الالكتروني : </b></span></label> <?php echo $meta['email'][0]; ?> </li>
         <li><label><span><b> اسم المشروع    : </b></span></label> <?php echo $meta['project'][0]; ?> </li>
-        <li><label><span><b> مجال المشروع     : </b></span></label> <?php echo $meta['projectDomain'][0]; ?> </li>
+        <li><label><span><b> نبذة عن المشروع     : </b></span></label> <?php echo $meta['about'][0]; ?> </li>
 
         <li><label><span><b> الاجابات     : </b></span></label>
         <br>

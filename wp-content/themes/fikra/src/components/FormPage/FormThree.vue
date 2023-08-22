@@ -19,7 +19,7 @@
 				@click="emit('moveBack')">
 				السابق
 			</button>
-			<button type="submit" class="w-full py-2 mx-1 mt-6 text-center text-white rounded-full bg-primary">التالي</button>
+			<button type="submit" class="w-full py-2 mx-1 mt-6 text-center text-white rounded-full bg-primary">إﻧﮭﺎء</button>
 		</div>
 	</form>
 </template>

@@ -50,11 +50,17 @@ function modify_function_question()
     global $post;
     $answers = get_post_meta($post->ID, 'answer');
     $step = get_post_meta($post->ID, 'step' , true);
+    $type = get_post_meta($post->ID, 'type' , true);
     ?>
     <ul class="_list">
         <li><label><span><b> Step number : </b></span></label>
+            <label><input type="radio" name="step" value="1" <?php echo $step == 1 ? 'checked' : '' ?>> 1</label>
             <label><input type="radio" name="step" value="2" <?php echo $step == 2 ? 'checked' : '' ?>> 2</label>
             <label><input type="radio" name="step" value="3" <?php echo $step == 3 ? 'checked' : '' ?>> 3</label>
+        </li>
+        <li><label><span><b> Type : </b></span></label>
+            <label><input type="radio" name="type" value="checkbox" <?php echo $type == 'checkbox' ? 'checked' : '' ?>> Checkbox</label>
+            <label><input type="radio" name="type" value="select" <?php echo $type == 'select' ? 'checked' : '' ?>> Dropdown list</label>
         </li>
     </ul>
     <?php
@@ -93,6 +99,7 @@ function save_question_meta($post_id = false, $post = false)
 {
     // Check post type for teachers
     update_post_meta($post_id, 'step', $_POST['step'] );
+    update_post_meta($post_id, 'type', $_POST['type'] );
     if ($post->post_type == 'question') {
         delete_post_meta($post_id, 'answer');
 

@@ -18,12 +18,18 @@ const zodProject = () =>
 		.string({ required_error: "هذا الحقل مطلوب" })
 		.nonempty("هذا الحقل مطلوب")
 		.min(3, { message: "يجب أن يكون اسم المشروع من ثلاثة أحرف على الأقل" });
+const zodAbout = () =>
+	zod
+		.string({ required_error: "هذا الحقل مطلوب" })
+		.nonempty("هذا الحقل مطلوب")
+		.min(3, { message: "يجب أن يكون النبذة من ثلاثة أحرف على الأقل" });
 
 // Sign Up ZOD Schema
 export const firstFormSchema = toFormValidator(
 	zod.object({
 		name: zodName(),
 		email: zodEmail(),
-		project: zodProject(),
+	    project: zodProject(),
+	    about: zodAbout(),
 	})
 );

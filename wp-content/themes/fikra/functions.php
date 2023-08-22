@@ -226,7 +226,8 @@ class Fikra_API extends WP_REST_Controller
             update_post_meta($post_id, 'email', $formOne['email']);
             update_post_meta($post_id, 'phone', $formOne['phone']);
             update_post_meta($post_id, 'project', wp_strip_all_tags($formOne['project']));
-            update_post_meta($post_id, 'projectDomain', wp_strip_all_tags($formOne['projectDomain']));
+            update_post_meta($post_id, 'about', wp_strip_all_tags($formOne['about']));
+//            update_post_meta($post_id, 'projectDomain', wp_strip_all_tags($formOne['projectDomain']));
             update_post_meta($post_id, 'answers', $answers);
             update_post_meta($post_id, 'keys', $keys);
 
@@ -305,17 +306,20 @@ class Fikra_API extends WP_REST_Controller
     public function get_questions($request)
     {
 
+        $questions_1 = [];
         $questions_2 = [];
         $questions_3 = [];
         $q = new WP_Query(['post_type' => 'question', 'posts_per_page' => -1, 'order_by' => 'menu_order', 'order' => 'asc', 'meta_key' => 'step', 'meta_value' => 2]);
         if ($q->have_posts()) : while ($q->have_posts()) : $q->the_post();
-
+            $type = get_post_meta(get_the_ID(), 'type', true);
             $answers = [];
+            $answers_2 = [];
             $ans = wp_get_post_terms(get_the_ID(), 'Keywords');
 
             if ($ans) {
                 foreach ($ans as $an) {
                     $answers[] = ['value' => $an->name, 'id' => 'F2Q' . $an->term_id];
+                    $answers_2[] =   $an->name  ;
                 }
             }
             $questions_2[] = [
@@ -323,10 +327,40 @@ class Fikra_API extends WP_REST_Controller
                 'qid' => get_The_ID(),
                 'type' => 'Multiple',
                 'options' => $answers,
+                'options2' => $answers_2,
                 'heading' => get_The_title(),
                 'subHeading' => null,
                 'description' => get_the_excerpt(),
+                'inputType'=>$type
+            ];
 
+        endwhile; endif;
+        wp_reset_postdata();
+        wp_reset_query();
+
+        $q1 = new WP_Query(['post_type' => 'question', 'posts_per_page' => -1, 'order_by' => 'menu_order', 'order' => 'asc', 'meta_key' => 'step', 'meta_value' => 1]);
+        if ($q1->have_posts()) : while ($q1->have_posts()) : $q1->the_post();
+            $type = get_post_meta(get_the_ID(), 'type', true);
+            $answers = [];
+            $answers_2 = [];
+            $ans = wp_get_post_terms(get_the_ID(), 'Keywords');
+
+            if ($ans) {
+                foreach ($ans as $an) {
+                    $answers[] = ['value' => $an->name, 'id' => 'F2Q' . $an->term_id];
+                    $answers_2[] =   $an->name  ;
+                }
+            }
+            $questions_1[] = [
+                'id' => 'question_' . get_The_ID(),
+                'qid' => get_The_ID(),
+                'type' => 'Multiple',
+                'options' => $answers,
+                'options2' => $answers_2,
+                'heading' => get_The_title(),
+                'subHeading' => null,
+                'description' => get_the_excerpt(),
+                'inputType'=>$type
             ];
 
         endwhile; endif;
@@ -335,6 +369,11 @@ class Fikra_API extends WP_REST_Controller
 
         $q3 = new WP_Query(['post_type' => 'question', 'posts_per_page' => -1, 'order_by' => 'menu_order', 'order' => 'asc', 'meta_key' => 'step', 'meta_value' => 3]);
         if ($q3->have_posts()) : while ($q3->have_posts()) : $q3->the_post();
+            $type = get_post_meta(get_the_ID(), 'type', true);
+
+            $answers_2 = [];
+
+
 
             $answers = [];
             $ans = wp_get_post_terms(get_the_ID(), 'Keywords');
@@ -342,6 +381,7 @@ class Fikra_API extends WP_REST_Controller
             if ($ans) {
                 foreach ($ans as $an) {
                     $answers[] = ['value' => $an->name, 'id' => 'F3Q' . $an->term_id];
+                    $answers_2[] =   $an->name  ;
                 }
             }
             $questions_3[] = [
@@ -349,9 +389,11 @@ class Fikra_API extends WP_REST_Controller
                 'qid' => get_The_ID(),
                 'type' => 'Multiple',
                 'options' => $answers,
+                'options2' => $answers_2,
                 'heading' => get_The_title(),
                 'subHeading' => null,
                 'description' => get_the_excerpt(),
+                'inputType'=>$type
 
             ];
 
@@ -360,6 +402,7 @@ class Fikra_API extends WP_REST_Controller
         wp_reset_query();
         // Retrieve data for the given ID and return it as a response.
         $data = [
+            'formFirstQuestions' => $questions_1,
             'formTwoQuestions' => $questions_2,
             'formThreeQuestions' => $questions_3
         ];

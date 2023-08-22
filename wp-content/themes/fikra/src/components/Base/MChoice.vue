@@ -3,21 +3,25 @@
 		<h2 v-if="heading" class="text-[#1C1C1C] text-xl font-bold">{{ heading }}</h2>
 		<p v-if="subHeading" class="text-[#344054] text-base font-normal">{{ subHeading }}</p>
 		<div class="flex flex-wrap items-center justify-start">
-			<div class="flex justify-start item-center min-w-[120px] m-2" v-for="option in options" :key="option">
+			<div class="flex w-100 justify-start item-center min-w-[120px] m-2" v-for="option in options" :key="option">
+			<span class="mcd">
+        	<span>
+            <input
+                v-if="questionType === 'Multiple'"
+                :id="option.id + questionID"
+                type="checkbox"
+                :value="option.value"
+                :checked="value.includes(option.value)"
+                @input="selectCheckbox(questionID, option.id, $event.target.checked)" />
 				<input
-					v-if="questionType === 'Multiple'"
-					:id="option.id + questionID"
-					type="checkbox"
-					:value="option.value"
-					:checked="value.includes(option.value)"
-					@input="selectCheckbox(questionID, option.id, $event.target.checked)" />
-				<input
-					v-if="questionType === 'Single'"
-					:id="option.id + questionID"
-					type="radio"
-					:value="option.value"
-					:checked="option.id === value.id"
-					@change="selectRadio(questionID, option)" />
+            v-if="questionType === 'Single'"
+            :id="option.id + questionID"
+            type="radio"
+            :value="option.value"
+            :checked="option.id === value.id"
+            @change="selectRadio(questionID, option)" />
+          </span>
+      </span>
 				<label :for="option.id + questionID" class="text-[#042925] text-lg mx-2">
 					{{ option.value }}
 				</label>
