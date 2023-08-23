@@ -21,7 +21,7 @@
     if (isset($locations[$location])) {
         // Get the menu items for the location
         $menu_items = wp_get_nav_menu_items($locations[$location]);
-
+print_r($menu_items);
         // Loop through the menu items and do something with each item
         foreach ($menu_items as $menu_item) {
             // Do something with the menu item
