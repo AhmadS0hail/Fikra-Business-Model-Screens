@@ -179,6 +179,7 @@ class Fikra_API extends WP_REST_Controller
      */
     public function post_answers($request)
     {
+
         // Retrieve data for the endpoint and return it as a response.
         $formOne = $request['order_data']['formOne'];
         $formTwo = $request['order_data']['formTwo'];
@@ -309,6 +310,7 @@ class Fikra_API extends WP_REST_Controller
         $questions_1 = [];
         $questions_2 = [];
         $questions_3 = [];
+
         $q = new WP_Query(['post_type' => 'question', 'posts_per_page' => -1, 'order_by' => 'menu_order', 'order' => 'asc', 'meta_key' => 'step', 'meta_value' => 2]);
         if ($q->have_posts()) : while ($q->have_posts()) : $q->the_post();
             $type = get_post_meta(get_the_ID(), 'type', true);
@@ -325,7 +327,7 @@ class Fikra_API extends WP_REST_Controller
             $questions_2[] = [
                 'id' => 'question_' . get_The_ID(),
                 'qid' => get_The_ID(),
-                'type' => 'Multiple',
+                'type' => $type == 'select' ? 'select' : 'Multiple',
                 'options' => $answers,
                 'options2' => $answers_2,
                 'heading' => get_The_title(),
@@ -354,7 +356,7 @@ class Fikra_API extends WP_REST_Controller
             $questions_1[] = [
                 'id' => 'question_' . get_The_ID(),
                 'qid' => get_The_ID(),
-                'type' => 'Multiple',
+                'type' => $type == 'select' ? 'select' : 'Multiple',
                 'options' => $answers,
                 'options2' => $answers_2,
                 'heading' => get_The_title(),
@@ -381,13 +383,13 @@ class Fikra_API extends WP_REST_Controller
             if ($ans) {
                 foreach ($ans as $an) {
                     $answers[] = ['value' => $an->name, 'id' => 'F3Q' . $an->term_id];
-                    $answers_2[] =   $an->name  ;
+                    $answers_2['F3Q' . $an->term_id] =   $an->name  ;
                 }
             }
             $questions_3[] = [
                 'id' => 'question_' . get_The_ID(),
                 'qid' => get_The_ID(),
-                'type' => 'Multiple',
+                'type' => $type == 'select' ? 'select' : 'Multiple',
                 'options' => $answers,
                 'options2' => $answers_2,
                 'heading' => get_The_title(),

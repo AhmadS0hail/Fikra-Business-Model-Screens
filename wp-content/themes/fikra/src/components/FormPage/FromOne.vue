@@ -63,7 +63,7 @@
           v-for="question in formFirstQuestions"
           :key="question.id"
       >
-2222
+
 
           <MChoice
               :questionID="question.id"
@@ -105,7 +105,7 @@ const { value: about } = useField("about");
 // Phone Related Login Initialization
 const phone = ref(null);
 const errorStates = ref({});
-
+const results = ref({});
 let formFirstQuestions = ref({});
 
 const phoneOptions = {
