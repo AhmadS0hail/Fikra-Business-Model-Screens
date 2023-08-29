@@ -316,7 +316,7 @@ class Fikra_API extends WP_REST_Controller
             $type = get_post_meta(get_the_ID(), 'type', true);
             $answers = [];
             $answers_2 = [];
-            $ans = wp_get_post_terms(get_the_ID(), 'Keywords');
+            $ans = wp_get_post_terms(get_the_ID(), 'Keywords' , ['orderby'=>'term_id','order'=>'asc']);
 
             if ($ans) {
                 foreach ($ans as $an) {
@@ -345,7 +345,7 @@ class Fikra_API extends WP_REST_Controller
             $type = get_post_meta(get_the_ID(), 'type', true);
             $answers = [];
             $answers_2 = [];
-            $ans = wp_get_post_terms(get_the_ID(), 'Keywords');
+            $ans = wp_get_post_terms(get_the_ID(), 'Keywords' , ['orderby'=>'term_id','order'=>'asc']);
 
             if ($ans) {
                 foreach ($ans as $an) {
@@ -378,7 +378,7 @@ class Fikra_API extends WP_REST_Controller
 
 
             $answers = [];
-            $ans = wp_get_post_terms(get_the_ID(), 'Keywords');
+            $ans = wp_get_post_terms(get_the_ID(), 'Keywords' , ['orderby'=>'term_id','order'=>'asc']);
 
             if ($ans) {
                 foreach ($ans as $an) {
