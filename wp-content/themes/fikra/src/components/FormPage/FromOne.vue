@@ -59,25 +59,7 @@
         </BaseTextarea>
       </div>
 
-      <div class="rtr"
-          v-for="question in formFirstQuestions"
-          :key="question.id"
-      >
-
-
-          <MChoice
-              :questionID="question.id"
-              :questionType="question.type"
-              :heading="question.heading"
-              :subHeading="question.subHeading"
-              :description="question.description"
-              :options="question.options"
-              :errorState="errorStates[question.id]"
-              @updateErrorState="checkError"
-              v-model:value="results[question.id]"/>
-
-      </div>
-    </div>
+     </div>
     <button type="submit" class="w-full py-2 mt-6 text-center text-white rounded-full bg-primary">التالي</button>
   </form>
 </template>

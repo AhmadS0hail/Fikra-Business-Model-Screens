@@ -80,7 +80,6 @@
         // Handle the response data
         formThreeQuestions = response.data.formThreeQuestions
         // Perform further actions with the response data as needed
-        console.log(response.data)
 
         formThreeQuestions.forEach((el) => {
           if (el.type === "Multiple") {

@@ -9,7 +9,7 @@
 				</div>
 				<div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
 					<div>
-						<h2 class="mb-3 text-white font-medium">خدماتنا</h2>
+<!--						<h2 class="mb-3 d-none text-white font-medium">خدماتنا</h2>-->
 						<ul class="text-gray-300 font-medium">
 
 							<li class="mb-3"  v-for="item in _settings.footer_menu1">
@@ -19,17 +19,17 @@
 						</ul>
 					</div>
 					<div>
-						<h2 class="mb-3 text-white font-medium">مراجع</h2>
+<!--						<h2 class="mb-3 d-none text-white font-medium">مراجع</h2>-->
 						<ul class="text-gray-300 font-medium">
-              <li class="mb-3"  v-for="item in _settings.footer_menu2">
+              <li class="mb-3"  v-for="item in _settings.footer_menu3">
                 <a :href="item.url" class="hover:text-white hover:underline">{{ item.title  }}</a>
               </li>
 						</ul>
 					</div>
 					<div>
-						<h2 class="mb-3 text-white font-medium">عامة</h2>
+<!--						<h2 class="mb-3 d-none text-white font-medium">عامة</h2>-->
 						<ul class="text-gray-300 font-medium">
-              <li class="mb-3"  v-for="item in _settings.footer_menu3">
+              <li class="mb-3"  v-for="item in _settings.footer_menu2">
                 <a :href="item.url" class="hover:text-white hover:underline">{{ item.title  }}</a>
               </li>
 						</ul>
@@ -51,7 +51,7 @@
 						<img :src="_settings.tlink+'/src/assets/img/linkedin.svg'" class="w-16 h-11" alt="" />
 					</a>
           <a :href="_settings.social.twitter" target="_blank" v-if="_settings.social.twitter">
-						<img :src="_settings.tlink+'/src/assets/img/twitter.svg'" class="w-16 h-11" alt="" />
+						<img :src="_settings.tlink+'/src/assets/img/x.svg'" class="w-16 h-11" alt="" />
 					</a>
 				</div>
 				<span class="text-grey sm:text-center font-medium text-sm">{{ _settings.mobile}}</span>

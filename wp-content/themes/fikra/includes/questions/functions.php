@@ -54,7 +54,6 @@ function modify_function_question()
     ?>
     <ul class="_list">
         <li><label><span><b> Step number : </b></span></label>
-            <label><input type="radio" name="step" value="1" <?php echo $step == 1 ? 'checked' : '' ?>> 1</label>
             <label><input type="radio" name="step" value="2" <?php echo $step == 2 ? 'checked' : '' ?>> 2</label>
             <label><input type="radio" name="step" value="3" <?php echo $step == 3 ? 'checked' : '' ?>> 3</label>
         </li>

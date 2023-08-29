@@ -81,7 +81,7 @@ const onSubmit = () => {
   let toSubmit = {};
   let errorFound = false;
 
-  console.log(results.value)
+
   Object.entries(results.value).forEach((el) => {
      if (Array.isArray(el[1]) && !el[1].length) {
       errorStates.value[el[0]] = true;
@@ -126,7 +126,7 @@ axios.get(apiUrl)
 
       formTwoQuestions.forEach((el) => {
 
-        console.log(el.id);
+
         if (el.type === "Multiple"  || el.type === 'select') {
           results.value[el.id] = [];
         }
