@@ -77,9 +77,25 @@ textarea{
 .w-100{
 	width: 100%;
 }
+.loginBtn-d{
+	display: flex;
+}
+.loginBtn-m{
+	display: none;
+}
 @media(max-width: 640px){
 	#mobile-menu-2 ul{
 		padding: 0 20px;
+	}
+	.mmenu a:not(.loginBtn){
+		padding: 10px;
+	}
+
+	.loginBtn-d{
+		display: none;
+	}
+	.loginBtn-m{
+		display: block;
 	}
 
 }
