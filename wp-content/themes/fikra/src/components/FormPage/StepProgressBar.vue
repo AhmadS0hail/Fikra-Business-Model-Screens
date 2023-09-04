@@ -69,7 +69,7 @@
 		content: "";
 	}
 
-	.progressbar li.active + li:after {
+  .progressbar li.active + li.active:after {
 		background: #4882ae;
 	}
 </style>
