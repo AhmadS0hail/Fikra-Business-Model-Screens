@@ -31,13 +31,13 @@
 				</div>
 				<div  data-te-collapse-item class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
 					<ul class="flex mmenu flex-col mt-4 font-medium text-grey lg:flex-row-reverse lg:items-center lg:space-x-7">
-          <a href="https://fikra-app.qewamx.com/login" target="_blank" class="loginBtn loginBtn-d w-fit py-2 px-12 mx-1 text-center text-white rounded-full bg-primary hover:bg-[#307094] transition-all duration-300 font-light"> تسجيل الدخول </a>
+          <a href="https://fikra-app.qewamx.com/login" target="_blank" class="loginBtn   w-fit py-2 px-12 mx-1 text-center text-white rounded-full bg-primary hover:bg-[#307094] transition-all duration-300 font-light"> تسجيل الدخول </a>
 
 						<li v-for="item in _settings.top_menu">
 							<a :href="item.url" class="block ">{{ item.title  }}</a>
 						</li>
 
-            <a href="https://fikra-app.qewamx.com/login" target="_blank" class="loginBtn loginBtn-m  w-fit py-2 px-12 mx-1 text-center text-white rounded-full bg-primary hover:bg-[#307094] transition-all duration-300 font-light"> تسجيل الدخول </a>
+<!--            <a href="https://fikra-app.qewamx.com/login" target="_blank" class="loginBtn loginBtn-m  w-fit py-2 px-12 mx-1 text-center text-white rounded-full bg-primary hover:bg-[#307094] transition-all duration-300 font-light"> تسجيل الدخول </a>-->
 
           </ul>
 				</div>

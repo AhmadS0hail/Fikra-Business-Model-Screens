@@ -90,7 +90,9 @@ textarea{
 	.mmenu a:not(.loginBtn){
 		padding: 10px;
 	}
-
+	.mmenu{
+		flex-direction: column-reverse !important;
+	}
 	.loginBtn-d{
 		display: none;
 	}
