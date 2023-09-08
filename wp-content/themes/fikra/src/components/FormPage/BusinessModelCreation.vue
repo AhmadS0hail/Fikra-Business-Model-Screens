@@ -2,7 +2,7 @@
 	<div class="flex flex-col items-center justify-center h-full">
 		<span class="loader"></span>
 		<p class="text-lg text-[#1C1C1C] leading-5 mb-2 mt-4">شكرًا</p>
-		<p class="text-lg text-[#1C1C1C] leading-5 mb-4">يتم الآن إنشاء نموذج العمل الابتكاري</p>
+		<p class="text-lg text-[#1C1C1C] leading-5 mb-4">يتم الآن إنشاء مقترحات نموذج العمل الابتكاري</p>
 		<p class="text-[#1C1C1C] leading-5 mb-4 text-sm">يرجى الانتظار...</p>
 	</div>
 </template>
