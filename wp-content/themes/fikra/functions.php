@@ -3,7 +3,6 @@ const GENERAL_OPTION_NAME = 'fikra-';
 
 $op = get_option(GENERAL_OPTION_NAME);
 
-add_action('admin_enqueue_scripts', 'wp_enqueue_media');
 
 get_template_part('includes/admin/general_option');
 get_template_part('includes/questions/functions');
@@ -18,7 +17,7 @@ function theme_setup_()
 
 {
 
-    add_theme_support('menus');
+//    add_theme_support('menus');
 
     add_theme_support('post-thumbnails');
 
@@ -411,22 +410,7 @@ class Fikra_API extends WP_REST_Controller
         return new WP_REST_Response($data, 200);
     }
 
-    /**
-     * Validate the ID parameter for the custom endpoint.
-     *
-     * @param mixed $param The ID parameter value.
-     * @param WP_REST_Request $request The REST API request.
-     * @param string $key The parameter key.
-     * @return bool|WP_Error True if valid, WP_Error if not.
-     */
-    public function validate_id($param, $request, $key)
-    {
-        if (!is_numeric($param) || intval($param) <= 0) {
-            return new WP_Error('rest_invalid_param', sprintf('Invalid %s parameter.', $key), array('status' => 400));
-        }
 
-        return true;
-    }
 }
 
 // Instantiate the custom API class and register its routes.

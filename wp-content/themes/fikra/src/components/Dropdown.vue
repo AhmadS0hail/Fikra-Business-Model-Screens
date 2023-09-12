@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown">
-    <button @click="toggle" class="dropbtn">
-      الخدمات
+    <button @click="toggle(parseInt(mid))" class="dropbtn">
+      {{ title }}
       <span
         ><img
           :src="_settings.tlink+'/src/assets/img/down-arrow.svg'"
@@ -10,30 +10,44 @@
           :class="[show ? 'rotate-180' : '']"
       /></span>
     </button>
-    <div id="myDropdown" class="dropdown-content" v-if="show">
-      <a href="#">رحلة المبتكر التجاري</a>
-      <a href="https://fikra.qewamx.com/">أداة اختيار نموذج العمل التجاري</a>
-      <a href="#">شهادة المنشأة الابتكارية</a>
-      <a href="/services">خدمات منظومة الابتكار</a>
-    </div>
+    <div  class="dropdown-content" v-if="show_id == parseInt(mid) && show">
+      <a v-for="ch_link in child" :href="ch_link.url">{{ ch_link.title}}</a>
+     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 const show = ref(false);
+const show_id = ref(false);
+const { mid ,title, child } = defineProps({
+  mid: { type: String   },
+  title: { type: String   },
+  child: { type: Array },
+});
 
-function toggle() {
-  show.value = !show.value;
+
+function toggle(id) {
+  if(show_id.value == id){
+     show_id.value = null;
+     show.value = false
+  }else{
+    show_id.value = id;
+    show.value = true
+  }
+
 }
 
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function (event) {
   if (!event.target.matches(".dropbtn")) {
     show.value = false;
+    show_id.value = null;
   }
 };
 </script>
+
+
 
 <style scoped>
 .dropbtn {

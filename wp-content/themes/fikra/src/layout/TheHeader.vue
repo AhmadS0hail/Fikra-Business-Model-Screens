@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <nav class="flex items-center justify-between w-full">
-      <RouterLink to="/" class="logo">
+      <RouterLink :to="_settings.url"   class="logo">
         <img :src="_settings.tlink+'/src/assets/img/logo.svg'"  class="h-16" />
       </RouterLink>
       <div>
@@ -9,7 +9,7 @@
         <label for="menu-toggle" class="menu-icon">&#9776;</label>
         <ul class="flex items-center gap-x-5 flex-row-reverse h-[60px] menu">
           <a
-              href="https://fikra-app.qewamx.com/login"
+              href="https://fikra-web.qewamx.com/login-provider"
               target="_blank"
               class="loginBtn w-fit py-2 px-12 mx-1 text-center text-white rounded-full bg-primary hover:bg-[#307094] transition-all duration-300 font-light"
           >
@@ -20,19 +20,12 @@
                     <img src="../assets/img/user.svg" class="h-[50px]" alt="User" />
                   </router-link>
                 </li> -->
-          <li @click="closeMenu">
-            <router-link to="/prize">جائزة ابتكر </router-link>
+
+          <li  @click="closeMenu" v-for="item in _settings.top_menu">
+            <Dropdown v-if="item.child.length > 0" :mid="item.id" :title="item.title" :child="item.child" />
+            <router-link v-else :to="item.url">{{ item.title  }} </router-link>
           </li>
-          <li @click="closeMenu">
-            <router-link to="/events">الفعاليات</router-link>
-          </li>
-          <li @click="closeMenu">
-            <router-link to="/library">مكتبة الابتكار</router-link>
-          </li>
-          <li><Dropdown /></li>
-          <li @click="closeMenu">
-            <router-link to="/">الرئيسية</router-link>
-          </li>
+
         </ul>
       </div>
     </nav>
@@ -40,13 +33,15 @@
 </template>
 
 <script setup>
-import Dropdown from "../components/Dropdown.vue";
-import { ref } from "vue";
+ import { ref } from "vue";
+ import Dropdown from "../components/Dropdown.vue";
 const isLoggedIn = ref(true);
 
 const closeMenu = () => {
   document.getElementById("menu-toggle").checked = false;
 };
+
+
 </script>
 
 <style scoped>
@@ -155,4 +150,7 @@ nav {
     margin-top: 20px !important;
   }
 }
+
+
+
 </style>

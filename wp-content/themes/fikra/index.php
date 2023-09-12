@@ -24,14 +24,41 @@
 
         // Loop through the menu items and do something with each item
         foreach ($menu_items as $menu_item) {
+            $url = '';
+            if($menu_item->object == 'custom'){
+                $url = $menu_item->url;
+                $titl = $menu_item->title;
+            }elseif($menu_item->object == 'post' || $menu_item->object == 'page'){
+                $url = get_permalink($menu_item->object_id);
+                $titl = get_the_title($menu_item->object_id);
+
+            }
             // Do something with the menu item
-            $top_menu[] = [
-                'title' => $menu_item->title,
-                'url' => $menu_item->url,
-            ];
+            if ( $menu_item->menu_item_parent == 0) {
+                $top_menu[$menu_item->ID] = [
+                    'id' => $menu_item->ID,
+                    'title' => $titl,
+                    'url' => $url,
+                    'parent' => $menu_item->menu_item_parent,
+                    'child' => [],
+                ];
+
+
+            } elseif ($menu_item->menu_item_parent > 0) {
+                $top_menu[$menu_item->menu_item_parent]['child'][] = [
+                    'id' => $menu_item->ID,
+                    'title' => $titl,
+                    'url' => $url,
+                    'parent' => $menu_item->menu_item_parent,
+                    'child' => [],
+                    ];
+            }
+
 
         }
     }
+
+
     if (isset($locations[$footer_1_location])) {
         // Get the menu items for the location
         $menu_items = wp_get_nav_menu_items($locations[$footer_1_location]);
@@ -97,7 +124,7 @@
         'footer_menu1' => $footer_menu1,
         'footer_menu2' => $footer_menu2,
         'footer_menu3' => $footer_menu3,
-        'tlink' => get_bloginfo("url").'/wp-content/themes/fikra',
+        'tlink' => get_bloginfo("url") . '/wp-content/themes/fikra',
         'tdomain' => get_bloginfo("url"),
 
     ]);
@@ -132,38 +159,39 @@
     }
     ?>
 
-<style>
+    <style>
 
-    @font-face {
-        font-family: 'Azer';
-        src: url('<?php echo get_stylesheet_directory_uri() ?>/src/assets/29LTAzer-Regular.woff2') format('woff2'),
-        url('<?php echo get_stylesheet_directory_uri() ?>/src/assets/29LTAzer-Regular.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-    }
+        @font-face {
+            font-family: 'Azer';
+            src: url('<?php echo get_stylesheet_directory_uri() ?>/src/assets/29LTAzer-Regular.woff2') format('woff2'),
+            url('<?php echo get_stylesheet_directory_uri() ?>/src/assets/29LTAzer-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
 
-    @font-face {
-        font-family: 'Azer';
-        src: url('<?php echo get_stylesheet_directory_uri() ?>/src/assets/29LTAzer-Medium.woff2') format('woff2'),
-        url('<?php echo get_stylesheet_directory_uri() ?>/src/assets/29LTAzer-Medium.woff') format('woff');
-        font-weight: 500;
-        font-style: normal;
-        font-display: swap;
-    }
-    @font-face {
-        font-family: 'Azer';
-        src: url('<?php echo get_stylesheet_directory_uri() ?>/src/assets/29LTAzer-Medium.woff2') format('woff2'),
-        url('<?php echo get_stylesheet_directory_uri() ?>/src/assets/29LTAzer-Medium.woff') format('woff');
-        font-weight: 700;
-        font-style: normal;
-        font-display: swap;
-    }
+        @font-face {
+            font-family: 'Azer';
+            src: url('<?php echo get_stylesheet_directory_uri() ?>/src/assets/29LTAzer-Medium.woff2') format('woff2'),
+            url('<?php echo get_stylesheet_directory_uri() ?>/src/assets/29LTAzer-Medium.woff') format('woff');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
 
-    .bm_img {
-        background-image: url("<?php echo get_stylesheet_directory_uri() ?>/src/assets/img/bm_img.jpg");
-     }
-</style>
+        @font-face {
+            font-family: 'Azer';
+            src: url('<?php echo get_stylesheet_directory_uri() ?>/src/assets/29LTAzer-Medium.woff2') format('woff2'),
+            url('<?php echo get_stylesheet_directory_uri() ?>/src/assets/29LTAzer-Medium.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        .bm_img {
+            background-image: url("<?php echo get_stylesheet_directory_uri() ?>/src/assets/img/bm_img.jpg");
+        }
+    </style>
 
     <?php get_header();
     ?>
