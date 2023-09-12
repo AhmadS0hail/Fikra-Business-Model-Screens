@@ -97,9 +97,9 @@ function modify_function_question()
 function save_question_meta($post_id = false, $post = false)
 {
     // Check post type for teachers
-    update_post_meta($post_id, 'step', $_POST['step'] );
-    update_post_meta($post_id, 'type', $_POST['type'] );
     if ($post->post_type == 'question') {
+        update_post_meta($post_id, 'step', $_POST['step'] );
+        update_post_meta($post_id, 'type', $_POST['type'] );
         delete_post_meta($post_id, 'answer');
 
         foreach ($_POST['answer'] as $k => $answer) {

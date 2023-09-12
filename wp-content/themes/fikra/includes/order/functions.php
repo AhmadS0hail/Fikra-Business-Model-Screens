@@ -109,8 +109,8 @@ function modify_function_orders()
 function save_orders_meta($post_id = false, $post = false)
 {
     // Check post type for teachers
-    update_post_meta($post_id, 'step', $_POST['step'] );
     if ($post->post_type == 'orders') {
+        update_post_meta($post_id, 'step', $_POST['step'] );
         delete_post_meta($post_id, 'answer');
 
         foreach ($_POST['answer'] as $k => $answer) {
