@@ -101,8 +101,8 @@
         'tdomain' => get_bloginfo("url"),
 
     ]);
-
     ?>
+
     <script type="text/javascript">
         window._settings = '<?php echo $settings_ ?>';
     </script>

@@ -15,6 +15,7 @@ const app = createApp(App);
 app.use(router);
 app.use(VueTelInput, {mode: "auto"});
 app.component("vue-select", VueSelect);
+// console.log(window._settings);
 app.config.globalProperties._settings = JSON.parse(window._settings);
 
 
