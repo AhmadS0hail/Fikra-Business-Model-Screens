@@ -23,7 +23,7 @@
 
           <li  @click="closeMenu" v-for="item in _settings.top_menu">
             <Dropdown v-if="item.child.length > 0" :mid="item.id" :title="item.title" :child="item.child" />
-            <router-link v-else :to="item.url">{{ item.title  }} </router-link>
+            <a v-else :href="item.url">{{ item.title  }} </a>
           </li>
 
         </ul>
