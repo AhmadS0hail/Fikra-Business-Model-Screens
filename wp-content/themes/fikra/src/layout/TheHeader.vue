@@ -96,7 +96,12 @@ nav {
   white-space: nowrap;
   cursor: pointer;
 }
-
+ul li .router-link-exact-active {
+  color: #4882ae !important;
+  border-bottom: 3px solid #4882ae;
+  margin-bottom: -3px;
+  transition: all .3s ease-in-out;
+}
 @media only screen and (max-width: 950px) {
   .header {
     justify-content: space-between;
