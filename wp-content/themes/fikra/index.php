@@ -41,6 +41,7 @@
                     'url' => $url,
                     'parent' => $menu_item->menu_item_parent,
                     'child' => [],
+                    'classes' => join(' ' , $menu_item->classes),
                 ];
 
 
@@ -51,6 +52,7 @@
                     'url' => $url,
                     'parent' => $menu_item->menu_item_parent,
                     'child' => [],
+                    'classes' => '',
                     ];
             }
 

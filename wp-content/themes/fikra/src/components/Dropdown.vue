@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown">
-    <button @click="toggle(parseInt(mid))" class="dropbtn">
+    <button @click="toggle(parseInt(mid))" class="dropbtn" :class="mclass">
       {{ title }}
       <span
         ><img
@@ -20,10 +20,11 @@
 import { ref } from "vue";
 const show = ref(false);
 const show_id = ref(false);
-const { mid ,title, child } = defineProps({
+const { mid ,title, child ,mclass} = defineProps({
   mid: { type: String   },
   title: { type: String   },
   child: { type: Array },
+  mclass: { type: String },
 });
 
 
@@ -52,7 +53,6 @@ window.onclick = function (event) {
 <style scoped>
 .dropbtn {
   color: #1e1e1e;
-  font-size: 16px;
   border: none;
   cursor: pointer;
 
@@ -60,8 +60,13 @@ window.onclick = function (event) {
   align-items: center;
   justify-content: space-between;
   overflow-y: hidden;
-}
 
+  padding: 20px 0;
+   padding: 20px 0;
+  font-size: 17px;
+  font-weight: 400;
+}
+.
 .dropdown {
   position: relative;
   display: inline-block;

@@ -22,8 +22,8 @@
                 </li> -->
 
           <li  @click="closeMenu" v-for="item in _settings.top_menu">
-            <Dropdown v-if="item.child.length > 0" :mid="item.id" :title="item.title" :child="item.child" />
-            <a v-else :href="item.url">{{ item.title  }} </a>
+            <Dropdown v-if="item.child.length > 0" :mid="item.id" :title="item.title" :child="item.child" :mclass="item.classes" />
+            <a v-else :href="item.url" :class="item.classes">{{ item.title  }} </a>
           </li>
 
         </ul>
